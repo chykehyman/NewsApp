@@ -1,10 +1,10 @@
 package com.hyman.newsapp.domain.baseViews
 
-import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import android.os.Bundle
-import android.support.annotation.LayoutRes
-import android.support.v7.app.AppCompatActivity
+import androidx.annotation.LayoutRes
+import androidx.appcompat.app.AppCompatActivity
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 
@@ -33,5 +33,4 @@ abstract class BaseActivity<T : ViewDataBinding>: AppCompatActivity() {
         compositeDisposable?.clear()
         compositeDisposable = null
     }
-
 }

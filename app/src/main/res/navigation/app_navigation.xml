@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		xmlns:tools="http://schemas.android.com/tools"
+		android:id="@+id/app_navigation.xml"
+		app:startDestination="@id/home_news_fragment">
+
+	<fragment
+			android:id="@+id/home_news_fragment"
+			android:name="com.hyman.newsapp.views.HomeNewsFragment"
+			android:label="Home"
+			tools:layout="@layout/fragment_home_news"/>
+	<fragment
+			android:id="@+id/food_news_fragment"
+			android:name="com.hyman.newsapp.views.FoodNewsFragment"
+			android:label="Food"
+			tools:layout="@layout/fragment_food_news"/>
+	<fragment
+			android:id="@+id/travel_news_fragment"
+			android:name="com.hyman.newsapp.views.TravelNewsFragment"
+			android:label="Travel"
+			tools:layout="@layout/fragment_travel_news"/>
+</navigation>
