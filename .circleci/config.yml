@@ -16,6 +16,9 @@ jobs:
         key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
     - *license_agreement
     - run:
+        name: Store API Key
+        command: echo $API_SECRET | base64 --decode >> /home/circleci/code/app/src/main/java/com/hyman/newsapp/util/ApiSecretKey.kt
+    - run:
         name: Download Dependencies
         command: |
           sudo chmod +x gradlew
