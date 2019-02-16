@@ -2,7 +2,7 @@ package com.hyman.newsapp.views.models
 
 import com.google.gson.annotations.SerializedName
 
-data class Result(
+data class News(
     val abstract: String,
     @SerializedName("byline") val author: String,
     val multimedia: List<Multimedia>,
