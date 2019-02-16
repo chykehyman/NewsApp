@@ -1,18 +1,18 @@
 package com.hyman.newsapp.domain.baseViews
 
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
 import android.os.Bundle
-import androidx.annotation.LayoutRes
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.LayoutRes
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.Fragment
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 
 abstract class BaseFragment<B : ViewDataBinding> : Fragment() {
-    private var compositeDisposable: CompositeDisposable? = null
+    var compositeDisposable: CompositeDisposable? = null
     protected lateinit var binding: B
 
     @LayoutRes
