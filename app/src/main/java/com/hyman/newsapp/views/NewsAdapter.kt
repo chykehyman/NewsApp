@@ -35,6 +35,7 @@ class NewsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         if (position == 0) ViewType.HEADER_ITEM.num else ViewType.CONTENT_LIST_ITEM.num
 
     fun updateNewsList(news: MutableList<News>) {
+        newsList.clear()
         newsList.addAll(news)
         notifyDataSetChanged()
     }

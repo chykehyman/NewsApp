@@ -19,6 +19,7 @@
 				app:layout_constraintHeight_percent=".6"
 				app:imageURI="@{newsModel.multimedia[4].url}"
 				app:placeholderImage="@drawable/placeholder"
+				app:placeholderImageScaleType="fitXY"
 				app:layout_constraintEnd_toEndOf="parent"
 				app:layout_constraintStart_toStartOf="parent"
 				app:layout_constraintTop_toTopOf="parent"
