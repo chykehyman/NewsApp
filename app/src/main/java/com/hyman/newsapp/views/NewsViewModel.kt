@@ -2,26 +2,27 @@ package com.hyman.newsapp.views
 
 import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.ViewModel
-import com.hyman.newsapp.Globals.Constants
 import com.hyman.newsapp.domain.data.repository.abstractions.IRepository
+import com.hyman.newsapp.globals.Constants
+import com.hyman.newsapp.globals.Constants.DEBOUNCE_TIME
 import com.hyman.newsapp.views.models.NewsResponse
-import io.reactivex.Observable
-import timber.log.Timber
+import io.reactivex.Flowable
+import java.util.concurrent.TimeUnit
 
 class NewsViewModel(private val repository: IRepository) : ViewModel() {
     val progressIsVisible = ObservableBoolean(false)
 
-    fun getNewFromApi(newsType: Constants.NewsType): Observable<NewsResponse> {
+    fun getNews(newsType: Constants.NewsType): Flowable<NewsResponse> {
         progressIsVisible.set(true)
         return repository.getNews(newsType)
+            .debounce(DEBOUNCE_TIME, TimeUnit.MILLISECONDS)
             .flatMap {
-                Observable.just(it)
+                Flowable.just(it)
             }
             .onErrorResumeNext { throwable: Throwable ->
-                Timber.e("ERROR: ${throwable.message}")
-                Observable.error(Exception(throwable))
+                Flowable.error(Exception(throwable))
             }
-            .doAfterTerminate {
+            .doOnTerminate {
                 progressIsVisible.set(false)
             }
     }

@@ -3,15 +3,14 @@ package com.hyman.newsapp.views
 
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.hyman.newsapp.Globals.Constants
 import com.hyman.newsapp.R
-
 import com.hyman.newsapp.databinding.FragmentNewsBinding
 import com.hyman.newsapp.domain.baseViews.BaseFragment
 import com.hyman.newsapp.domain.extentions.addToCompositeDisposable
 import com.hyman.newsapp.domain.extentions.executeOnBackground
 import com.hyman.newsapp.domain.extentions.isNetworkConnected
 import com.hyman.newsapp.domain.extentions.showSnackBar
+import com.hyman.newsapp.globals.Constants
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class HomeNewsFragment : BaseFragment<FragmentNewsBinding>() {
@@ -34,9 +33,10 @@ class HomeNewsFragment : BaseFragment<FragmentNewsBinding>() {
     }
 
     private fun getHomeNews(newType: Constants.NewsType) {
-        viewModel.getNewFromApi(newType)
+        viewModel.getNews(newType)
             .executeOnBackground()
             .subscribe({
+                viewModel.progressIsVisible.set(false)
                 (binding.rvNewsList.adapter as NewsAdapter).updateNewsList(it.news.toMutableList())
             }, {
                 showSnackBar(
@@ -46,7 +46,6 @@ class HomeNewsFragment : BaseFragment<FragmentNewsBinding>() {
                         it.message!!,
                     getString(R.string.retry)
                 ) { getHomeNews(newType) }
-            })
-            .addToCompositeDisposable(compositeDisposable!!)
+            }).addToCompositeDisposable(compositeDisposable!!)
     }
 }
