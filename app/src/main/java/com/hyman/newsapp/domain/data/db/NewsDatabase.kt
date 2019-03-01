@@ -7,7 +7,7 @@ import com.hyman.newsapp.domain.data.db.typeconverters.MultimediaConverter
 import com.hyman.newsapp.domain.data.db.typeconverters.NewsConverter
 import com.hyman.newsapp.views.models.NewsResponse
 
-@Database(entities = [NewsResponse::class], version = 1)
+@Database(entities = [NewsResponse::class], version = 1, exportSchema = false)
 @TypeConverters(NewsConverter::class, MultimediaConverter::class)
 abstract class NewsDatabase : RoomDatabase() {
     abstract fun newsDao(): NewsDao

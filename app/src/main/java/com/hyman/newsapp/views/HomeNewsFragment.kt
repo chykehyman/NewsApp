@@ -1,6 +1,5 @@
 package com.hyman.newsapp.views
 
-
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hyman.newsapp.R
@@ -11,14 +10,12 @@ import com.hyman.newsapp.domain.extentions.executeOnBackground
 import com.hyman.newsapp.domain.extentions.isNetworkConnected
 import com.hyman.newsapp.domain.extentions.showSnackBar
 import com.hyman.newsapp.globals.Constants
-import org.koin.android.viewmodel.ext.android.viewModel
 
 class HomeNewsFragment : BaseFragment<FragmentNewsBinding>() {
     override fun layoutId() = R.layout.fragment_news
-    private val viewModel: NewsViewModel by viewModel()
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
-        binding.viewModel = this@HomeNewsFragment.viewModel
+        binding.viewModel = viewModel
         initRecyclerView()
         getHomeNews(Constants.NewsType.HOME)
         super.onActivityCreated(savedInstanceState)
@@ -32,12 +29,20 @@ class HomeNewsFragment : BaseFragment<FragmentNewsBinding>() {
         }
     }
 
+    private fun getAdapter(): NewsAdapter {
+        return (binding.rvNewsList.adapter as NewsAdapter)
+    }
+
     private fun getHomeNews(newType: Constants.NewsType) {
         viewModel.getNews(newType)
             .executeOnBackground()
             .subscribe({
                 viewModel.progressIsVisible.set(false)
-                (binding.rvNewsList.adapter as NewsAdapter).updateNewsList(it.news.toMutableList())
+                with(getAdapter()) {
+                    updateNewsList(it.news.toMutableList())
+                    shareNewsListener(this)
+                    moreNewsListener(this)
+                }
             }, {
                 showSnackBar(
                     if (!isNetworkConnected())

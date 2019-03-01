@@ -1,11 +1,15 @@
 <resources>
-    <string name="app_name">NewsApp</string>
-    <string name="title_activity_news">NewsActivity</string>
-    <string name="title_home">Home</string>
-    <string name="title_food">Food</string>
-    <string name="title_travel">Travel</string>
+	<string name="app_name">NewsApp</string>
+	<string name="title_activity_news">NewsActivity</string>
+	<string name="title_home">Home</string>
+	<string name="title_food">Food</string>
+	<string name="title_travel">Travel</string>
 	<string name="no_network_connection">No Internet Connection</string>
 	<string name="retry">RETRY</string>
 	<string name="formattedDate">%s %s %s</string>
 	<string name="read_more">Read More</string>
+	<string name="title_contact">Phone Contacts</string>
+	<string name="no_contacts">You have no contacts available</string>
+	<string name="no_browser_installed">Please install a web browser application to read more</string>
+	<string name="share_intent_type">text/plain</string>
 </resources>

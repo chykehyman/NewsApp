@@ -11,11 +11,9 @@ import com.hyman.newsapp.domain.extentions.executeOnBackground
 import com.hyman.newsapp.domain.extentions.isNetworkConnected
 import com.hyman.newsapp.domain.extentions.showSnackBar
 import com.hyman.newsapp.globals.Constants
-import org.koin.android.viewmodel.ext.android.viewModel
 
 class TravelNewsFragment : BaseFragment<FragmentNewsBinding>() {
     override fun layoutId() = R.layout.fragment_news
-    private val viewModel: NewsViewModel by viewModel()
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         binding.viewModel = this@TravelNewsFragment.viewModel
@@ -32,12 +30,20 @@ class TravelNewsFragment : BaseFragment<FragmentNewsBinding>() {
         }
     }
 
+    private fun getAdapter(): NewsAdapter {
+        return (binding.rvNewsList.adapter as NewsAdapter)
+    }
+
     private fun getTravelNews(newType: Constants.NewsType) {
         viewModel.getNews(newType)
             .executeOnBackground()
             .subscribe({
                 viewModel.progressIsVisible.set(false)
-                (binding.rvNewsList.adapter as NewsAdapter).updateNewsList(it.news.toMutableList())
+                with(getAdapter()) {
+                    updateNewsList(it.news.toMutableList())
+                    shareNewsListener(this)
+                    moreNewsListener(this)
+                }
             }, {
                 showSnackBar(
                     if (!isNetworkConnected())
