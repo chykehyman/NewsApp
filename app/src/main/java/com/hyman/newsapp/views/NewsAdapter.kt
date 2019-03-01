@@ -11,6 +11,8 @@ import com.hyman.newsapp.views.models.News
 class NewsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     lateinit var binding: ViewDataBinding
     var newsList = mutableListOf<News>()
+    var shareNewsItemClick: ((News) -> Unit)? = null
+    var moreNewsItemClick: ((String) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == ViewType.HEADER_ITEM.num) {
@@ -49,8 +51,16 @@ class NewsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     inner class BodyViewHolder(var binding: ViewBodyItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(news: News) {
-            binding.newsModel = news
-            binding.executePendingBindings()
+            with(binding) {
+                btnReadMore.setOnClickListener {
+                    moreNewsItemClick?.invoke(news.shortUrl)
+                }
+                ivShareIcon.setOnClickListener {
+                    shareNewsItemClick?.invoke(news)
+                }
+                newsModel = news
+                executePendingBindings()
+            }
         }
     }
 

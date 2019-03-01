@@ -11,6 +11,7 @@ import java.util.concurrent.TimeUnit
 
 class NewsViewModel(private val repository: IRepository) : ViewModel() {
     val progressIsVisible = ObservableBoolean(false)
+    val hasContacts = ObservableBoolean()
 
     fun getNews(newsType: Constants.NewsType): Flowable<NewsResponse> {
         progressIsVisible.set(true)

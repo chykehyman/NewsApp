@@ -1,8 +1,8 @@
 package com.hyman.newsapp.domain.data.repository.implementations
 
-import com.hyman.newsapp.globals.Constants
 import com.hyman.newsapp.domain.data.db.NewsDatabase
 import com.hyman.newsapp.domain.data.repository.abstractions.IOfflineRepository
+import com.hyman.newsapp.globals.Constants
 import com.hyman.newsapp.views.models.NewsResponse
 
 class OfflineRepository(database: NewsDatabase) : IOfflineRepository {
